@@ -1,0 +1,29 @@
+<div class="container mt-4" *ngIf="post">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <article class="card">
+        <div class="card-body">
+          <h1 class="card-title">{{ post.title }}</h1>
+          <p class="text-muted small">
+            Creado el {{ post.createdAt | date:'medium' }}
+            <span *ngIf="canEdit()"> •
+              <a [routerLink]="['/posts', postId, 'edit']" class="text-decoration-none">Editar</a> |
+              <a href="#" (click)="deletePost(); $event.preventDefault()" class="text-danger text-decoration-none">Eliminar</a>
+            </span>
+          </p>
+          <div class="card-text">{{ post.content }}</div>
+        </div>
+      </article>
+
+      <hr class="my-4">
+
+      <app-comentarios [postId]="postId"></app-comentarios>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4" *ngIf="!post">
+  <div class="alert alert-warning">
+    Post no encontrado.
+  </div>
+</div>

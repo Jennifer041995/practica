@@ -1,0 +1,47 @@
+<div class="comments-section">
+  <h3>Comentarios ({{ comments.length }})</h3>
+
+  <div class="mb-4" *ngIf="authService.user$ | async">
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <textarea
+          class="form-control"
+          rows="3"
+          placeholder="Escribe un comentario..."
+          formControlName="text"
+          [class.is-invalid]="commentForm.get('text')?.invalid && commentForm.get('text')?.touched"
+        ></textarea>
+        <div class="invalid-feedback" *ngIf="commentForm.get('text')?.invalid && commentForm.get('text')?.touched">
+          El comentario no puede estar vacío.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="commentForm.invalid">Comentar</button>
+    </form>
+  </div>
+
+  <div class="mb-3" *ngIf="!(authService.user$ | async)">
+    <div class="alert alert-info">
+      <a routerLink="/login" class="alert-link">Inicia sesión</a> para dejar un comentario.
+    </div>
+  </div>
+
+  <div class="comments-list">
+    <div *ngFor="let comment of comments" class="comment card mb-3">
+      <div class="card-body">
+        <p class="card-text">{{ comment.text }}</p>
+        <p class="card-text">
+          <small class="text-muted">
+            {{ comment.createdAt | date:'medium' }}
+            <span *ngIf="canDelete(comment)">
+              • <a href="#" (click)="deleteComment(comment.id!); $event.preventDefault()" class="text-danger">Eliminar</a>
+            </span>
+          </small>
+        </p>
+      </div>
+    </div>
+
+    <div *ngIf="comments.length === 0" class="text-center text-muted">
+      <p>No hay comentarios aún. ¡Sé el primero en comentar!</p>
+    </div>
+  </div>
+</div>

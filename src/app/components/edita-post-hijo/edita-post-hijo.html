@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2>{{ isEditMode ? 'Editar Post' : 'Crear Nuevo Post' }}</h2>
+
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="title" class="form-label">Título</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            formControlName="title"
+            [class.is-invalid]="postForm.get('title')?.invalid && postForm.get('title')?.touched"
+          >
+          <div class="invalid-feedback" *ngIf="postForm.get('title')?.invalid && postForm.get('title')?.touched">
+            El título es requerido y debe tener al menos 5 caracteres.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="content" class="form-label">Contenido</label>
+          <textarea
+            class="form-control"
+            id="content"
+            rows="10"
+            formControlName="content"
+            [class.is-invalid]="postForm.get('content')?.invalid && postForm.get('content')?.touched"
+          ></textarea>
+          <div class="invalid-feedback" *ngIf="postForm.get('content')?.invalid && postForm.get('content')?.touched">
+            El contenido es requerido y debe tener al menos 10 caracteres.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">
+          {{ isEditMode ? 'Actualizar Post' : 'Crear Post' }}
+        </button>
+        <a routerLink="/" class="btn btn-secondary ms-2">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>

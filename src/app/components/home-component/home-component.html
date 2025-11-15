@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/home">Blog Comentarios</a>
+    <div class="navbar-nav ms-auto">
+      <a class="nav-link" routerLink="/home">Home</a>
+      <a class="nav-link" routerLink="/posts/new">Crear Post</a>
+      <a class="nav-link" routerLink="/profile">Perfil</a>
+      <a class="nav-link" *ngIf="!(auth.user$ | async)" routerLink="/login">Login</a>
+      <button class="btn btn-outline-light ms-2" *ngIf="auth.user$ | async" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h1>Posts Recientes</h1>
+  <app-crear-lista-hijo></app-crear-lista-hijo>
+</div>

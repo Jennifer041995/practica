@@ -1,0 +1,78 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">
+            {{ isLoginMode ? 'Iniciar Sesión' : 'Registrarse' }}
+          </h2>
+
+          <form *ngIf="isLoginMode" (ngSubmit)="login(loginEmail.value, loginPassword.value)">
+            <div class="mb-3">
+              <label for="loginEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="loginEmail" #loginEmail required>
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="loginPassword" #loginPassword required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+          </form>
+
+          <form *ngIf="!isLoginMode" (ngSubmit)="register(registerEmail.value, registerPassword.value)">
+            <div class="mb-3">
+              <label for="registerEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="registerEmail" #registerEmail required>
+            </div>
+            <div class="mb-3">
+              <label for="registerPassword" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="registerPassword" #registerPassword required>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+          </form>
+
+          <div class="text-center mt-3">
+            <button type="button" class="btn btn-link" (click)="toggleMode()">
+              {{ isLoginMode ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="user" class="card mt-4">
+        <div class="card-body">
+          <h3>Perfil</h3>
+
+          <!-- Foto de perfil -->
+          <div class="text-center mb-3">
+            <img [src]="user.photoURL || 'https://via.placeholder.com/150'" alt="Foto de perfil" class="rounded-circle" style="width: 150px; height: 150px;">
+            <br>
+            <button class="btn btn-sm btn-outline-primary mt-2" (click)="changePhoto()">Cambiar Foto</button>
+          </div>
+
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Nombre:</strong> {{ user.displayName || 'No especificado' }}</p>
+
+          <!-- Ajustes -->
+          <div class="mb-3">
+            <h5>Ajustes</h5>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="notifications" [(ngModel)]="notificationsEnabled">
+              <label class="form-check-label" for="notifications">
+                Habilitar notificaciones
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="darkMode" [(ngModel)]="darkModeEnabled">
+              <label class="form-check-label" for="darkMode">
+                Modo oscuro
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-danger w-100" (click)="logout()">Cerrar Sesión</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div *ngIf="posts.length === 0" class="alert alert-info">
+  No hay posts aún. ¡Sé el primero en crear uno!
+</div>
+
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div *ngFor="let post of posts" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a [routerLink]="['/posts', post.id]" class="text-decoration-none">{{ post.title }}</a>
+        </h5>
+        <p class="card-text text-muted small">
+          Creado el {{ post.createdAt | date:'medium' }}
+        </p>
+        <p class="card-text">{{ post.content | slice:0:200 }}...</p>
+        <a [routerLink]="['/posts', post.id]" class="btn btn-primary btn-sm">Leer más</a>
+      </div>
+    </div>
+  </div>
+</div>
