@@ -14,7 +14,7 @@ const firebaseConfig = {
   projectId: "your-project-id",
   storageBucket: "your-project.appspot.com",
   messagingSenderId: "123456789",
-  appId: "your-app-id"
+  appId: "your-app-id" 
 };
 
 export const appConfig: ApplicationConfig = {
