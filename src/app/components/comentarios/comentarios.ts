@@ -12,9 +12,12 @@ import { Comment } from '../../models/comment.model';
   templateUrl: './comentarios.html',
   styleUrl: './comentarios.css'
 })
+//onChange se refiere al hook del ciclo de vida
 export class Comentarios implements OnInit, OnChanges {
   @Input() postId!: string;
   comments: Comment[] = [];
+  //FormGroup actua como un contenedor para agrupar multiples controles de formularios,
+  //como campos de entrada de texto, casilla de verificacion o listas desplegables.
   commentForm: FormGroup;
 
   constructor(
@@ -32,6 +35,10 @@ export class Comentarios implements OnInit, OnChanges {
     this.loadComments();
   }
 
+  //ngOnChange es un gancho del ciclo de vida que se ejecuta cuando una o mas propiedades
+  //de entrada enlazadas a datos de un compoente cambia,
+  //Es decir, define un metodo en el componenete para hestionar los cambios.
+  //Estos metodos recibe un objeto que contiene valores nuevos y anteriores de las propiedades cambiadas.
   ngOnChanges(changes: SimpleChanges) {
     if (changes['postId'] && !changes['postId'].firstChange) {
       this.loadComments();

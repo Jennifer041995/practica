@@ -33,8 +33,13 @@ export class PostDetalle implements OnInit {
   }
 
   canEdit(): boolean {
+    // canEdit se refiere a la logica para controlar si un elemento 
+    //como un  campo de formulario o una celda de una cuadricula, pueda ser editado o modificado por el usuario.
+    //Esta funcionalidad se implementa a traves de propiedades booleanas que determinan si el elemento es editable o no
     let canEdit = false;
     this.authService.user$.subscribe(user => {
+      //authorId es el identificador unico del autor de una publicacion o contenido en una aplicacion.
+      //Se utiliza para asociar el contenido con su creador y gestionar permisos de edicion o eliminacion.
       canEdit = user && this.post && user.uid === this.post.authorId;
     });
     return canEdit;
